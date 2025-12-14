@@ -27,6 +27,86 @@
             --gradient-main: linear-gradient(135deg, #00f5d4 0%, #4361ee 50%, #f72585 100%);
         }
 
+        /* Light Theme */
+        [data-theme="light"] {
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e8ecf1;
+            --accent-cyan: #0891b2;
+            --accent-magenta: #db2777;
+            --accent-yellow: #f59e0b;
+            --accent-blue: #3b82f6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border-color: #cbd5e1;
+            --gradient-main: linear-gradient(135deg, #0891b2 0%, #3b82f6 50%, #8b5cf6 100%);
+        }
+
+        [data-theme="light"] .bg-grid {
+            background-image: 
+                linear-gradient(rgba(8, 145, 178, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(8, 145, 178, 0.08) 1px, transparent 1px);
+        }
+
+        [data-theme="light"] .bg-glow {
+            opacity: 0.1;
+        }
+
+        [data-theme="light"] .bg-glow-1 {
+            background: var(--accent-blue);
+        }
+
+        [data-theme="light"] .bg-glow-2 {
+            background: var(--accent-cyan);
+        }
+
+        [data-theme="light"] .terminal-window {
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="light"] .lightbox {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        [data-theme="light"] nav {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        [data-theme="light"] .skill-bar {
+            background: #e2e8f0;
+        }
+
+        [data-theme="light"] .timeline::before {
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-blue));
+        }
+
+        [data-theme="light"] .tag {
+            background: rgba(8, 145, 178, 0.1);
+            border-color: rgba(8, 145, 178, 0.3);
+        }
+
+        [data-theme="light"] .project-card::before {
+            background: var(--gradient-main);
+        }
+
+        [data-theme="light"] .gallery-overlay {
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.9));
+        }
+
+        [data-theme="light"] .gallery-caption {
+            color: var(--accent-cyan);
+        }
+
+        [data-theme="light"] .contact-link {
+            background: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .lang-btn.active {
+            color: #ffffff;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -1058,6 +1138,12 @@
                 right: 0;
             }
 
+            .theme-toggle {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+
             .lang-toggle {
                 padding: 0.25rem;
             }
@@ -1134,6 +1220,54 @@
             gap: 1rem;
         }
 
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-cyan);
+            transform: rotate(15deg);
+        }
+
+        .theme-icon-dark,
+        .theme-icon-light {
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .theme-icon-dark {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .theme-icon-light {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        [data-theme="light"] .theme-icon-dark {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        [data-theme="light"] .theme-icon-light {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Language Toggle */
         .lang-toggle {
             display: flex;
@@ -1196,6 +1330,10 @@
             <a href="#gallery" class="nav-link" data-page="gallery" data-en="Gallery" data-cs="Fotogalerie">Gallery</a>
         </div>
         <div class="nav-right">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon-dark">🌙</span>
+                <span class="theme-icon-light">☀️</span>
+            </button>
             <div class="lang-toggle">
                 <button class="lang-btn active" data-lang="en">EN</button>
                 <button class="lang-btn" data-lang="cs">CZ</button>
@@ -1936,6 +2074,35 @@
         const savedLang = localStorage.getItem('preferredLang');
         if (savedLang) {
             switchLanguage(savedLang);
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('preferredTheme', theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        }
+
+        // Theme toggle click handler
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('preferredTheme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            // Check system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                setTheme('light');
+            }
         }
 
         // Lightbox functionality
