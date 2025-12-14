@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam Suda | Python Developer & Algo Trader</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --accent-cyan: #00f5d4;
+            --accent-magenta: #f72585;
+            --accent-yellow: #fee440;
+            --accent-blue: #4361ee;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --border-color: #2a2a3a;
+            --gradient-main: linear-gradient(135deg, #00f5d4 0%, #4361ee 50%, #f72585 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background Grid */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 245, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 212, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow-1 {
+            background: var(--accent-cyan);
+            top: -200px;
+            right: -200px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-glow-2 {
+            background: var(--accent-magenta);
+            bottom: -200px;
+            left: -200px;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-main);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::before, .nav-link.active::before {
+            opacity: 0.15;
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 100px;
+        }
+
+        .page {
+            display: none;
+            min-height: calc(100vh - 100px);
+            padding: 4rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: calc(100vh - 200px);
+        }
+
+        .hero-content h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-content h1 span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-subtitle::before {
+            content: '>';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .terminal-window {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: var(--bg-tertiary);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot:nth-child(1) { background: #ff5f57; }
+        .terminal-dot:nth-child(2) { background: #febc2e; }
+        .terminal-dot:nth-child(3) { background: #28c840; }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: typeIn 0.3s ease forwards;
+        }
+
+        .terminal-line:nth-child(1) { animation-delay: 0.2s; }
+        .terminal-line:nth-child(2) { animation-delay: 0.4s; }
+        .terminal-line:nth-child(3) { animation-delay: 0.6s; }
+        .terminal-line:nth-child(4) { animation-delay: 0.8s; }
+        .terminal-line:nth-child(5) { animation-delay: 1s; }
+        .terminal-line:nth-child(6) { animation-delay: 1.2s; }
+        .terminal-line:nth-child(7) { animation-delay: 1.4s; }
+
+        @keyframes typeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .terminal-prompt { color: var(--accent-cyan); }
+        .terminal-command { color: var(--text-primary); }
+        .terminal-output { color: var(--text-secondary); }
+        .terminal-success { color: var(--accent-cyan); }
+        .terminal-warning { color: var(--accent-yellow); }
+
+        /* Section Titles */
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-magenta));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--bg-primary);
+            border: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            transform: translateX(-7px);
+        }
+
+        .timeline-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateX(10px);
+            box-shadow: 0 10px 40px rgba(0, 245, 212, 0.1);
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-role {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .timeline-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(0, 245, 212, 0.1);
+            color: var(--accent-cyan);
+            border-radius: 6px;
+            border: 1px solid rgba(0, 245, 212, 0.2);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 40px rgba(0, 245, 212, 0.1);
+        }
+
+        .skill-category-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .skill-category-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-main);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .skill-level {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: var(--gradient-main);
+            border-radius: 4px;
+            transition: width 1s ease;
+            width: 0;
+        }
+
+        .skill-fill.animate {
+            width: var(--skill-level);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-main);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 245, 212, 0.15);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 245, 212, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--text-primary);
+            gap: 0.75rem;
+        }
+
+        .github-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+        }
+
+        .github-profile {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .github-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .github-info h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .github-info p {
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .github-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 245, 212, 0.3);
+        }
+
+        /* Contact Links */
+        .contact-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .skills-grid, .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .page {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .github-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .github-profile {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <nav>
+        <div class="logo">AS</div>
+        <div class="nav-links">
+            <a href="#home" class="nav-link active" data-page="home">Home</a>
+            <a href="#experience" class="nav-link" data-page="experience">Experience</a>
+            <a href="#skills" class="nav-link" data-page="skills">Skills</a>
+            <a href="#projects" class="nav-link" data-page="projects">Projects</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HOME PAGE -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-subtitle">Python Developer & Crypto Investor</div>
+                    <h1>Hi, I'm <span>Adam Suda</span></h1>
+                    <p class="hero-description">
+                        Crypto investor since 2017, Python developer, and trading algorithm creator 
+                        based in Děčín, Czech Republic. Background in production management, 
+                        lean methodology, and strategic account management. Building automated 
+                        trading systems and turning market data into profitable insights.
+                    </p>
+                    <div class="contact-links">
+                        <a href="https://cz.linkedin.com/in/adamsuda" target="_blank" class="contact-link" title="LinkedIn">
+                            in
+                        </a>
+                        <a href="https://github.com/DEK4DENCE" target="_blank" class="contact-link" title="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-value">8+</div>
+                            <div class="stat-label">Years Investing</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">10+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">969</div>
+                            <div class="stat-label">LI Followers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-dot"></div>
+                            <div class="terminal-dot"></div>
+                            <div class="terminal-dot"></div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span>
+                                <span class="terminal-command"> whoami</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">adam_suda :: investor :: algo_creator</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span>
+                                <span class="terminal-command"> cat skills.txt</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-success">✓ Python</span> | 
+                                <span class="terminal-success">✓ Crypto Trading</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-success">✓ API Integration</span> | 
+                                <span class="terminal-success">✓ Automation</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">$</span>
+                                <span class="terminal-command"> ./trading_bot.py --live</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-warning">▸ Bot active... scanning markets 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE PAGE -->
+        <section id="experience" class="page">
+            <div class="section-header">
+                <span class="section-tag">// Career Path</span>
+                <h2 class="section-title">Work Experience</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-date">Nov 2017 – Present</div>
+                        <h3 class="timeline-role">Investor & Algo Developer</h3>
+                        <div class="timeline-company">Self-employed • Děčín, Czech Republic</div>
+                        <p class="timeline-description">
+                            Active cryptocurrency investor and Python developer creating automated 
+                            trading algorithms. Building and maintaining trading bots, backtesting 
+                            strategies, and developing data pipelines for market analysis. 
+                            Managing personal investment portfolio across multiple asset classes.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Crypto Trading</span>
+                            <span class="tag">Algorithmic Trading</span>
+                            <span class="tag">API Integration</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-date">Feb 2022 – Mar 2025</div>
+                        <h3 class="timeline-role">Strategic Account Manager</h3>
+                        <div class="timeline-company">TIMOCOM • Ústí nad Labem, Czech Republic</div>
+                        <p class="timeline-description">
+                            Led API integration projects and logistics process optimization. 
+                            Managed key accounts and drove digitalization initiatives. 
+                            Responsible for brand and product marketing strategies 
+                            in the logistics technology sector.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">API Integration</span>
+                            <span class="tag">Key Account Management</span>
+                            <span class="tag">Digitalization</span>
+                            <span class="tag">B2B Marketing</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-date">Oct 2019 – Mar 2021</div>
+                        <h3 class="timeline-role">Senior Marketing Project Manager</h3>
+                        <div class="timeline-company">CreatiCom • Děčín, Czech Republic</div>
+                        <p class="timeline-description">
+                            Developed and executed marketing and sales strategies. 
+                            Led social selling initiatives and marketing automation projects. 
+                            Managed PPC campaigns, social media advertising, and 
+                            performance marketing across multiple channels.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">Marketing Strategy</span>
+                            <span class="tag">PPC</span>
+                            <span class="tag">Automation</span>
+                            <span class="tag">Social Selling</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-date">Oct 2015 – Nov 2019</div>
+                        <h3 class="timeline-role">Lean Manager & Unit Production Manager</h3>
+                        <div class="timeline-company">Constellium • Děčín, Czech Republic</div>
+                        <p class="timeline-description">
+                            Implemented lean manufacturing methodology across production facilities. 
+                            Led production hall operations and managed team performance. 
+                            Responsible for achieving KPIs and continuous process improvement 
+                            in an international manufacturing environment.
+                        </p>
+                        <div class="timeline-tags">
+                            <span class="tag">Lean Management</span>
+                            <span class="tag">Team Leadership</span>
+                            <span class="tag">KPI Management</span>
+                            <span class="tag">Process Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS PAGE -->
+        <section id="skills" class="page">
+            <div class="section-header">
+                <span class="section-tag">// Tech Stack</span>
+                <h2 class="section-title">Skills & Expertise</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">🐍</span>
+                        Programming & Tech
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">API Integration</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Automation & Scripting</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 82%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">SQL / Databases</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">📊</span>
+                        Trading & Finance
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Crypto Markets</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Algorithmic Trading</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Technical Analysis</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Risk Management</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 78%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">🎯</span>
+                        Business & Management
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Lean Management</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Key Account Management</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Team Leadership</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Process Optimization</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">🌍</span>
+                        Languages
+                    </h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Czech</span>
+                            <span class="skill-level">Native</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">English</span>
+                            <span class="skill-level">Professional</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">German</span>
+                            <span class="skill-level">Working</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 55%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Russian</span>
+                            <span class="skill-level">Elementary</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 25%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS PAGE -->
+        <section id="projects" class="page">
+            <div class="section-header">
+                <span class="section-tag">// Open Source</span>
+                <h2 class="section-title">GitHub & Projects</h2>
+            </div>
+            <div class="github-header">
+                <div class="github-profile">
+                    <div class="github-avatar">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </div>
+                    <div class="github-info">
+                        <h3>@DEK4DENCE</h3>
+                        <p>Python • Pinescript • HTML • CSS • PHP • SQL</p>
+                    </div>
+                </div>
+                <a href="https://github.com/DEK4DENCE" target="_blank" class="github-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    View Profile
+                </a>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">📊</div>
+                    <h3 class="project-title">Hyperliquid Trading App</h3>
+                    <p class="project-description">
+                        Professional trading dashboard for Hyperliquid DEX with TradingView charts, 
+                        TP/SL management, performance analytics, position tracking, 
+                        and secure login system. Built with Streamlit.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tag">Python</span>
+                        <span class="tag">Streamlit</span>
+                        <span class="tag">Plotly</span>
+                        <span class="tag">TradingView</span>
+                    </div>
+                    <a href="https://github.com/DEK4DENCE/hyperliquid-trading-app" target="_blank" class="project-link">
+                        View Repository →
+                    </a>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">💧</div>
+                    <h3 class="project-title">HL Liquidations Monitor</h3>
+                    <p class="project-description">
+                        Real-time liquidation monitoring application for Hyperliquid exchange. 
+                        Tracks and displays liquidation events with customizable alerts 
+                        and data visualization for market analysis.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tag">Python</span>
+                        <span class="tag">WebSocket</span>
+                        <span class="tag">Hyperliquid SDK</span>
+                        <span class="tag">Real-time</span>
+                    </div>
+                    <a href="https://github.com/DEK4DENCE/hl-liquidations-v2" target="_blank" class="project-link">
+                        View Repository →
+                    </a>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">🐦</div>
+                    <h3 class="project-title">Twitter Watcher</h3>
+                    <p class="project-description">
+                        Desktop tool for monitoring X/Twitter accounts and forwarding 
+                        new tweets to Discord. Features GUI interface, Nitter RSS scraping, 
+                        SQLite storage, and automated Discord webhook notifications.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tag">Python</span>
+                        <span class="tag">Tkinter</span>
+                        <span class="tag">Discord Webhooks</span>
+                        <span class="tag">SQLite</span>
+                    </div>
+                    <a href="https://github.com/DEK4DENCE/Twitter-watcher" target="_blank" class="project-link">
+                        View Repository →
+                    </a>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">🌐</div>
+                    <h3 class="project-title">Personal CV Website</h3>
+                    <p class="project-description">
+                        Modern interactive portfolio website with cyber-tech aesthetic. 
+                        Features animated backgrounds, skill visualizations, 
+                        work timeline, and responsive design. Built with vanilla HTML/CSS/JS.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+                    <a href="https://github.com/DEK4DENCE/cv-website" target="_blank" class="project-link">
+                        View Repository →
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        function navigateTo(pageId) {
+            pages.forEach(page => page.classList.remove('active'));
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+            
+            // Animate skill bars on skills page
+            if (pageId === 'skills') {
+                setTimeout(() => {
+                    document.querySelectorAll('.skill-fill').forEach(fill => {
+                        fill.classList.add('animate');
+                    });
+                }, 100);
+            }
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                navigateTo(pageId);
+                history.pushState(null, '', `#${pageId}`);
+            });
+        });
+
+        // Handle hash changes
+        window.addEventListener('hashchange', () => {
+            const pageId = window.location.hash.slice(1) || 'home';
+            navigateTo(pageId);
+        });
+
+        // Initial load
+        const initialPage = window.location.hash.slice(1) || 'home';
+        navigateTo(initialPage);
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item, .skill-category, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
