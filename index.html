@@ -109,6 +109,13 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -1px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -743,6 +750,17 @@
             gap: 0.5rem;
         }
 
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+
         .placeholder-icon {
             font-size: 3rem;
             opacity: 0.5;
@@ -812,20 +830,25 @@
 
             .nav-links {
                 position: fixed;
-                top: 70px;
+                top: 60px;
                 left: 0;
                 right: 0;
                 background: rgba(10, 10, 15, 0.98);
+                -webkit-backdrop-filter: blur(20px);
                 backdrop-filter: blur(20px);
                 flex-direction: column;
-                padding: 1.5rem;
-                gap: 0.5rem;
+                padding: 1rem;
+                gap: 0.25rem;
                 border-bottom: 1px solid var(--border-color);
-                transform: translateY(-100%);
+                transform: translateY(-150%);
                 opacity: 0;
                 visibility: hidden;
+                -webkit-transition: all 0.3s ease;
                 transition: all 0.3s ease;
                 display: flex;
+                z-index: 999;
+                max-height: calc(100vh - 60px);
+                overflow-y: auto;
             }
 
             .nav-links.active {
@@ -838,12 +861,19 @@
                 padding: 1rem;
                 text-align: center;
                 border-radius: 8px;
+                font-size: 1rem;
+                display: block;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .nav-link:active {
+                background: rgba(0, 245, 212, 0.2);
             }
 
             .nav-right {
                 display: flex;
                 align-items: center;
-                gap: 1rem;
+                gap: 0.75rem;
             }
 
             .hamburger {
@@ -851,18 +881,22 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                width: 40px;
-                height: 40px;
+                width: 44px;
+                height: 44px;
                 background: var(--bg-secondary);
                 border: 1px solid var(--border-color);
                 border-radius: 8px;
                 cursor: pointer;
                 gap: 5px;
-                padding: 8px;
+                padding: 10px;
+                -webkit-transition: all 0.3s ease;
                 transition: all 0.3s ease;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
             }
 
-            .hamburger:hover {
+            .hamburger:hover,
+            .hamburger:active {
                 border-color: var(--accent-cyan);
             }
 
@@ -871,7 +905,9 @@
                 width: 20px;
                 height: 2px;
                 background: var(--text-secondary);
+                -webkit-transition: all 0.3s ease;
                 transition: all 0.3s ease;
+                pointer-events: none;
             }
 
             .hamburger.active span:nth-child(1) {
@@ -916,6 +952,15 @@
 
             .gallery-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .lang-toggle {
+                padding: 0.25rem;
+            }
+
+            .lang-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
             }
         }
 
@@ -976,7 +1021,7 @@
     <div class="bg-glow bg-glow-2"></div>
 
     <nav>
-        <div class="logo">AS</div>
+        <a href="#home" class="logo" id="logo-home">AS</a>
         <div class="nav-links">
             <a href="#home" class="nav-link active" data-page="home" data-en="Home" data-cs="Domů">Home</a>
             <a href="#experience" class="nav-link" data-page="experience" data-en="Experience" data-cs="Zkušenosti">Experience</a>
@@ -1541,61 +1586,42 @@
             <p class="gallery-intro" data-en="Photos from conferences, events, and professional activities." data-cs="Fotky z konferencí, eventů a profesních aktivit.">Photos from conferences, events, and professional activities.</p>
             <div class="gallery-grid">
                 <div class="gallery-item" data-category="conference">
-                    <div class="gallery-placeholder">
-                        <span class="placeholder-icon">📸</span>
-                        <span class="placeholder-text" data-en="Conference Photo" data-cs="Foto z konference">Conference Photo</span>
-                    </div>
+                    <img src="photo1.png" alt="Logistics Ride 2022" class="gallery-image">
                     <div class="gallery-overlay">
-                        <span class="gallery-caption" data-en="Conference 2024" data-cs="Konference 2024">Conference 2024</span>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="conference">
-                    <div class="gallery-placeholder">
-                        <span class="placeholder-icon">🎤</span>
-                        <span class="placeholder-text" data-en="Speaking Event" data-cs="Přednáška">Speaking Event</span>
-                    </div>
-                    <div class="gallery-overlay">
-                        <span class="gallery-caption" data-en="Tech Talk" data-cs="Tech Talk">Tech Talk</span>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="networking">
-                    <div class="gallery-placeholder">
-                        <span class="placeholder-icon">🤝</span>
-                        <span class="placeholder-text" data-en="Networking Event" data-cs="Networking">Networking Event</span>
-                    </div>
-                    <div class="gallery-overlay">
-                        <span class="gallery-caption" data-en="Industry Meetup" data-cs="Setkání">Industry Meetup</span>
+                        <span class="gallery-caption" data-en="Logistics Ride 2022, Ostrava" data-cs="Logistics Ride 2022, Ostrava">Logistics Ride 2022, Ostrava</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="work">
-                    <div class="gallery-placeholder">
-                        <span class="placeholder-icon">💼</span>
-                        <span class="placeholder-text" data-en="Work Photo" data-cs="Pracovní foto">Work Photo</span>
-                    </div>
+                    <img src="photo2.png" alt="Professional Photo" class="gallery-image">
                     <div class="gallery-overlay">
-                        <span class="gallery-caption" data-en="At Work" data-cs="V práci">At Work</span>
+                        <span class="gallery-caption" data-en="Professional Photo" data-cs="Profesní foto">Professional Photo</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="conference">
-                    <div class="gallery-placeholder">
-                        <span class="placeholder-icon">🏆</span>
-                        <span class="placeholder-text" data-en="Award Ceremony" data-cs="Předávání cen">Award Ceremony</span>
-                    </div>
+                    <img src="photo3.png" alt="Conference Presentation" class="gallery-image">
                     <div class="gallery-overlay">
-                        <span class="gallery-caption" data-en="Achievement" data-cs="Ocenění">Achievement</span>
+                        <span class="gallery-caption" data-en="Conference Presentation" data-cs="Přednáška na konferenci">Conference Presentation</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="team">
+                    <img src="photo4.png" alt="Team Event" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption" data-en="Team Building Event" data-cs="Týmová akce">Team Building Event</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="award">
+                    <img src="photo5.png" alt="Award Ceremony" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption" data-en="Certificate Ceremony" data-cs="Předávání certifikátů">Certificate Ceremony</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="networking">
-                    <div class="gallery-placeholder">
-                        <span class="placeholder-icon">🎯</span>
-                        <span class="placeholder-text" data-en="Team Event" data-cs="Týmová akce">Team Event</span>
-                    </div>
+                    <img src="photo6.png" alt="TIMOCOM Event" class="gallery-image">
                     <div class="gallery-overlay">
-                        <span class="gallery-caption" data-en="Team Building" data-cs="Teambuilding">Team Building</span>
+                        <span class="gallery-caption" data-en="TIMOCOM Networking" data-cs="TIMOCOM Networking">TIMOCOM Networking</span>
                     </div>
                 </div>
             </div>
-            <p class="gallery-note" data-en="📷 ----" data-cs="📷 ----">📷 ----</p>
         </section>
     </main>
 
@@ -1604,7 +1630,10 @@
         const hamburger = document.querySelector('.hamburger');
         const navLinksContainer = document.querySelector('.nav-links');
 
-        hamburger.addEventListener('click', () => {
+        // Use touchend for iOS and click for desktop
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             hamburger.classList.toggle('active');
             navLinksContainer.classList.toggle('active');
         });
@@ -1615,6 +1644,25 @@
                 hamburger.classList.remove('active');
                 navLinksContainer.classList.remove('active');
             });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !navLinksContainer.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinksContainer.classList.remove('active');
+            }
+        });
+
+        // Logo click handler - navigate to home
+        const logoHome = document.getElementById('logo-home');
+        logoHome.addEventListener('click', function(e) {
+            e.preventDefault();
+            navigateTo('home');
+            history.pushState(null, '', '#home');
+            // Close mobile menu if open
+            hamburger.classList.remove('active');
+            navLinksContainer.classList.remove('active');
         });
 
         // Navigation
