@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adam Suda | Python Developer & Algo Trader</title>
+    <title>Adam Suda | Python Developer & Automation Specialist</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -752,6 +752,45 @@
                 flex-direction: column;
             }
         }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
     </style>
 </head>
 <body>
@@ -762,10 +801,14 @@
     <nav>
         <div class="logo">AS</div>
         <div class="nav-links">
-            <a href="#home" class="nav-link active" data-page="home">Home</a>
-            <a href="#experience" class="nav-link" data-page="experience">Experience</a>
-            <a href="#skills" class="nav-link" data-page="skills">Skills</a>
-            <a href="#projects" class="nav-link" data-page="projects">Projects</a>
+            <a href="#home" class="nav-link active" data-page="home" data-en="Home" data-cs="Domů">Home</a>
+            <a href="#experience" class="nav-link" data-page="experience" data-en="Experience" data-cs="Zkušenosti">Experience</a>
+            <a href="#skills" class="nav-link" data-page="skills" data-en="Skills" data-cs="Dovednosti">Skills</a>
+            <a href="#projects" class="nav-link" data-page="projects" data-en="Projects" data-cs="Projekty">Projects</a>
+        </div>
+        <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="cs">CZ</button>
         </div>
     </nav>
 
@@ -774,13 +817,14 @@
         <section id="home" class="page active">
             <div class="hero">
                 <div class="hero-content">
-                    <div class="hero-subtitle">Python Developer & Crypto Investor</div>
-                    <h1>Hi, I'm <span>Adam Suda</span></h1>
-                    <p class="hero-description">
-                        Crypto investor since 2017, Python developer, and trading algorithm creator 
-                        based in Děčín, Czech Republic. Background in production management, 
-                        lean methodology, and strategic account management. Building automated 
-                        trading systems and turning market data into profitable insights.
+                    <div class="hero-subtitle" data-en="Python Developer & Automation Specialist" data-cs="Python Vývojář & Specialista na Automatizaci">Python Developer & Automation Specialist</div>
+                    <h1><span data-en="Hi, I'm" data-cs="Ahoj, jsem">Hi, I'm</span> <span>Adam Suda</span></h1>
+                    <p class="hero-description" data-en="Python developer specializing in API integrations, automation tools, and real-time data applications. Built trading dashboards with Streamlit & TradingView, liquidation monitors using WebSocket, and Discord notification bots. Background in strategic account management and lean methodology brings structured approach to software development. Active crypto investor since 2017, combining market knowledge with programming to create practical trading tools." data-cs="Python vývojář se specializací na API integrace, automatizační nástroje a real-time datové aplikace. Vytvořil jsem obchodní dashboardy ve Streamlit & TradingView, monitory likvidací pomocí WebSocket a Discord notifikační boty. Zkušenosti se strategickým account managementem a lean metodikou přináším do vývoje softwaru. Aktivní krypto investor od roku 2017, kombinuji znalost trhů s programováním pro tvorbu praktických obchodních nástrojů.">
+                        Python developer specializing in API integrations, automation tools, and real-time data applications. 
+                        Built trading dashboards with Streamlit & TradingView, liquidation monitors using WebSocket, 
+                        and Discord notification bots. Background in strategic account management and lean methodology 
+                        brings structured approach to software development. Active crypto investor since 2017, 
+                        combining market knowledge with programming to create practical trading tools.
                     </p>
                     <div class="contact-links">
                         <a href="https://cz.linkedin.com/in/adamsuda" target="_blank" class="contact-link" title="LinkedIn">
@@ -793,15 +837,15 @@
                     <div class="hero-stats">
                         <div class="stat">
                             <div class="stat-value">8+</div>
-                            <div class="stat-label">Years Investing</div>
+                            <div class="stat-label" data-en="Years Investing" data-cs="Let Investování">Years Investing</div>
                         </div>
                         <div class="stat">
                             <div class="stat-value">10+</div>
-                            <div class="stat-label">Years Experience</div>
+                            <div class="stat-label" data-en="Years Experience" data-cs="Let Zkušeností">Years Experience</div>
                         </div>
                         <div class="stat">
                             <div class="stat-value">969</div>
-                            <div class="stat-label">LI Followers</div>
+                            <div class="stat-label" data-en="LI Followers" data-cs="LI Sledujících">LI Followers</div>
                         </div>
                     </div>
                 </div>
@@ -818,11 +862,11 @@
                                 <span class="terminal-command"> whoami</span>
                             </div>
                             <div class="terminal-line">
-                                <span class="terminal-output">adam_suda :: investor :: algo_creator</span>
+                                <span class="terminal-output">adam_suda :: python_dev :: automation</span>
                             </div>
                             <div class="terminal-line">
-                                <span class="terminal-prompt">$</span>
-                                <span class="terminal-command"> cat skills.txt</span>
+                                <span class="terminal-prompt">📍</span>
+                                <span class="terminal-command"> Decin, Czech Republic</span>
                             </div>
                             <div class="terminal-line">
                                 <span class="terminal-success">✓ Python</span> | 
@@ -834,10 +878,10 @@
                             </div>
                             <div class="terminal-line">
                                 <span class="terminal-prompt">$</span>
-                                <span class="terminal-command"> ./trading_bot.py --live</span>
+                                <span class="terminal-command"> python app.py --production</span>
                             </div>
                             <div class="terminal-line">
-                                <span class="terminal-warning">▸ Bot active... scanning markets 24/7</span>
+                                <span class="terminal-warning" data-en="▸ App running... ready for requests" data-cs="▸ Aplikace běží... připravena na požadavky">▸ App running... ready for requests</span>
                             </div>
                         </div>
                     </div>
@@ -848,26 +892,26 @@
         <!-- EXPERIENCE PAGE -->
         <section id="experience" class="page">
             <div class="section-header">
-                <span class="section-tag">// Career Path</span>
-                <h2 class="section-title">Work Experience</h2>
+                <span class="section-tag" data-en="// Career Path" data-cs="// Kariéra">// Career Path</span>
+                <h2 class="section-title" data-en="Work Experience" data-cs="Pracovní Zkušenosti">Work Experience</h2>
             </div>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
-                        <div class="timeline-date">Nov 2017 – Present</div>
-                        <h3 class="timeline-role">Investor & Algo Developer</h3>
-                        <div class="timeline-company">Self-employed • Děčín, Czech Republic</div>
-                        <p class="timeline-description">
-                            Active cryptocurrency investor and Python developer creating automated 
-                            trading algorithms. Building and maintaining trading bots, backtesting 
-                            strategies, and developing data pipelines for market analysis. 
-                            Managing personal investment portfolio across multiple asset classes.
+                        <div class="timeline-date" data-en="Nov 2017 – Present" data-cs="Lis 2017 – Současnost">Nov 2017 – Present</div>
+                        <h3 class="timeline-role" data-en="Python Developer & Automation Specialist" data-cs="Python Vývojář & Specialista na Automatizaci">Python Developer & Automation Specialist</h3>
+                        <div class="timeline-company" data-en="Self-employed • Decin, Czech Republic" data-cs="OSVČ • Děčín, Česká republika">Self-employed • Decin, Czech Republic</div>
+                        <p class="timeline-description" data-en="Developing Python applications including trading dashboards with Streamlit, real-time data monitors using WebSocket, and automation bots with Discord integration. Building REST API integrations, data pipelines, and GUI applications. Managing personal crypto investment portfolio since 2017." data-cs="Vývoj Python aplikací včetně obchodních dashboardů ve Streamlit, real-time monitorů dat pomocí WebSocket a automatizačních botů s Discord integrací. Tvorba REST API integrací, datových pipeline a GUI aplikací. Správa osobního krypto investičního portfolia od roku 2017.">
+                            Developing Python applications including trading dashboards with Streamlit, 
+                            real-time data monitors using WebSocket, and automation bots with Discord integration. 
+                            Building REST API integrations, data pipelines, and GUI applications. 
+                            Managing personal crypto investment portfolio since 2017.
                         </p>
                         <div class="timeline-tags">
                             <span class="tag">Python</span>
-                            <span class="tag">Crypto Trading</span>
-                            <span class="tag">Algorithmic Trading</span>
+                            <span class="tag">Streamlit</span>
+                            <span class="tag">WebSocket</span>
                             <span class="tag">API Integration</span>
                         </div>
                     </div>
@@ -875,10 +919,10 @@
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
-                        <div class="timeline-date">Feb 2022 – Mar 2025</div>
+                        <div class="timeline-date" data-en="Feb 2022 – Mar 2025" data-cs="Úno 2022 – Bře 2025">Feb 2022 – Mar 2025</div>
                         <h3 class="timeline-role">Strategic Account Manager</h3>
                         <div class="timeline-company">TIMOCOM • Ústí nad Labem, Czech Republic</div>
-                        <p class="timeline-description">
+                        <p class="timeline-description" data-en="Led API integration projects and logistics process optimization. Managed key accounts and drove digitalization initiatives. Responsible for brand and product marketing strategies in the logistics technology sector." data-cs="Vedení projektů API integrace a optimalizace logistických procesů. Správa klíčových zákazníků a řízení digitalizačních iniciativ. Zodpovědnost za brand a produktový marketing v sektoru logistických technologií.">
                             Led API integration projects and logistics process optimization. 
                             Managed key accounts and drove digitalization initiatives. 
                             Responsible for brand and product marketing strategies 
@@ -887,7 +931,7 @@
                         <div class="timeline-tags">
                             <span class="tag">API Integration</span>
                             <span class="tag">Key Account Management</span>
-                            <span class="tag">Digitalization</span>
+                            <span class="tag" data-en="Digitalization" data-cs="Digitalizace">Digitalization</span>
                             <span class="tag">B2B Marketing</span>
                         </div>
                     </div>
@@ -895,19 +939,19 @@
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
-                        <div class="timeline-date">Oct 2019 – Mar 2021</div>
-                        <h3 class="timeline-role">Senior Marketing Project Manager</h3>
-                        <div class="timeline-company">CreatiCom • Děčín, Czech Republic</div>
-                        <p class="timeline-description">
+                        <div class="timeline-date" data-en="Oct 2019 – Mar 2021" data-cs="Říj 2019 – Bře 2021">Oct 2019 – Mar 2021</div>
+                        <h3 class="timeline-role" data-en="Senior Marketing Project Manager" data-cs="Senior Marketing Projektový Manažer">Senior Marketing Project Manager</h3>
+                        <div class="timeline-company" data-en="CreatiCom • Decin, Czech Republic" data-cs="CreatiCom • Děčín, Česká republika">CreatiCom • Decin, Czech Republic</div>
+                        <p class="timeline-description" data-en="Developed and executed marketing and sales strategies. Led social selling initiatives and marketing automation projects. Managed PPC campaigns, social media advertising, and performance marketing across multiple channels." data-cs="Vývoj a realizace marketingových a prodejních strategií. Vedení iniciativ social sellingu a projektů marketingové automatizace. Správa PPC kampaní, reklamy na sociálních sítích a výkonnostního marketingu napříč kanály.">
                             Developed and executed marketing and sales strategies. 
                             Led social selling initiatives and marketing automation projects. 
                             Managed PPC campaigns, social media advertising, and 
                             performance marketing across multiple channels.
                         </p>
                         <div class="timeline-tags">
-                            <span class="tag">Marketing Strategy</span>
+                            <span class="tag" data-en="Marketing Strategy" data-cs="Marketingová Strategie">Marketing Strategy</span>
                             <span class="tag">PPC</span>
-                            <span class="tag">Automation</span>
+                            <span class="tag" data-en="Automation" data-cs="Automatizace">Automation</span>
                             <span class="tag">Social Selling</span>
                         </div>
                     </div>
@@ -915,10 +959,10 @@
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-card">
-                        <div class="timeline-date">Oct 2015 – Nov 2019</div>
-                        <h3 class="timeline-role">Lean Manager & Unit Production Manager</h3>
-                        <div class="timeline-company">Constellium • Děčín, Czech Republic</div>
-                        <p class="timeline-description">
+                        <div class="timeline-date" data-en="Oct 2015 – Nov 2019" data-cs="Říj 2015 – Lis 2019">Oct 2015 – Nov 2019</div>
+                        <h3 class="timeline-role" data-en="Lean Manager & Unit Production Manager" data-cs="Lean Manažer & Vedoucí Výrobní Jednotky">Lean Manager & Unit Production Manager</h3>
+                        <div class="timeline-company" data-en="Constellium • Decin, Czech Republic" data-cs="Constellium • Děčín, Česká republika">Constellium • Decin, Czech Republic</div>
+                        <p class="timeline-description" data-en="Implemented lean manufacturing methodology across production facilities. Led production hall operations and managed team performance. Responsible for achieving KPIs and continuous process improvement in an international manufacturing environment." data-cs="Implementace lean manufacturing metodiky napříč výrobními zařízeními. Vedení provozu výrobní haly a řízení výkonu týmu. Zodpovědnost za plnění KPI a kontinuální zlepšování procesů v mezinárodním výrobním prostředí.">
                             Implemented lean manufacturing methodology across production facilities. 
                             Led production hall operations and managed team performance. 
                             Responsible for achieving KPIs and continuous process improvement 
@@ -926,9 +970,9 @@
                         </p>
                         <div class="timeline-tags">
                             <span class="tag">Lean Management</span>
-                            <span class="tag">Team Leadership</span>
-                            <span class="tag">KPI Management</span>
-                            <span class="tag">Process Optimization</span>
+                            <span class="tag" data-en="Team Leadership" data-cs="Vedení Týmu">Team Leadership</span>
+                            <span class="tag" data-en="KPI Management" data-cs="Řízení KPI">KPI Management</span>
+                            <span class="tag" data-en="Process Optimization" data-cs="Optimalizace Procesů">Process Optimization</span>
                         </div>
                     </div>
                 </div>
@@ -938,14 +982,14 @@
         <!-- SKILLS PAGE -->
         <section id="skills" class="page">
             <div class="section-header">
-                <span class="section-tag">// Tech Stack</span>
-                <h2 class="section-title">Skills & Expertise</h2>
+                <span class="section-tag" data-en="// Tech Stack" data-cs="// Technologie">// Tech Stack</span>
+                <h2 class="section-title" data-en="Skills & Expertise" data-cs="Dovednosti & Expertíza">Skills & Expertise</h2>
             </div>
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3 class="skill-category-title">
                         <span class="skill-category-icon">🐍</span>
-                        Programming & Tech
+                        <span data-en="Programming & Tech" data-cs="Programování & Technologie">Programming & Tech</span>
                     </h3>
                     <div class="skill-item">
                         <div class="skill-header">
@@ -953,7 +997,7 @@
                             <span class="skill-level">Advanced</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 85%"></div>
+                            <div class="skill-fill" style="--skill-level: 75%"></div>
                         </div>
                     </div>
                     <div class="skill-item">
@@ -962,32 +1006,68 @@
                             <span class="skill-level">Advanced</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 88%"></div>
+                            <div class="skill-fill" style="--skill-level: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">HTML</span>
+                            <span class="skill-level">Proficient</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 65%"></div>
                         </div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Automation & Scripting</span>
-                            <span class="skill-level">Advanced</span>
+                            <span class="skill-level">Intermediate</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 82%"></div>
+                            <div class="skill-fill" style="--skill-level: 55%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Pinescript</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 50%"></div>
                         </div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">SQL / Databases</span>
-                            <span class="skill-level">Intermediate</span>
+                            <span class="skill-level">Basic</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 65%"></div>
+                            <div class="skill-fill" style="--skill-level: 40%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">PHP</span>
+                            <span class="skill-level">Basic</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 35%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">CSS</span>
+                            <span class="skill-level">Beginner</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 25%"></div>
                         </div>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3 class="skill-category-title">
                         <span class="skill-category-icon">📊</span>
-                        Trading & Finance
+                        <span data-en="Trading & Finance" data-cs="Trading & Finance">Trading & Finance</span>
                     </h3>
                     <div class="skill-item">
                         <div class="skill-header">
@@ -1029,54 +1109,54 @@
                 <div class="skill-category">
                     <h3 class="skill-category-title">
                         <span class="skill-category-icon">🎯</span>
-                        Business & Management
+                        <span data-en="Business & Management" data-cs="Obchod & Management">Business & Management</span>
                     </h3>
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Lean Management</span>
-                            <span class="skill-level">Expert</span>
+                            <span class="skill-level">Advanced</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 92%"></div>
+                            <div class="skill-fill" style="--skill-level: 75%"></div>
                         </div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Key Account Management</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Team Leadership</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="--skill-level: 65%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Process Optimization</span>
                             <span class="skill-level">Advanced</span>
                         </div>
                         <div class="skill-bar">
                             <div class="skill-fill" style="--skill-level: 85%"></div>
                         </div>
                     </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Team Leadership</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Process Optimization</span>
-                            <span class="skill-level">Expert</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 90%"></div>
-                        </div>
-                    </div>
                 </div>
                 <div class="skill-category">
                     <h3 class="skill-category-title">
                         <span class="skill-category-icon">🌍</span>
-                        Languages
+                        <span data-en="Languages" data-cs="Jazyky">Languages</span>
                     </h3>
                     <div class="skill-item">
                         <div class="skill-header">
-                            <span class="skill-name">Czech</span>
-                            <span class="skill-level">Native</span>
+                            <span class="skill-name" data-en="Czech" data-cs="Čeština">Czech</span>
+                            <span class="skill-level" data-en="Native" data-cs="Rodilý">Native</span>
                         </div>
                         <div class="skill-bar">
                             <div class="skill-fill" style="--skill-level: 100%"></div>
@@ -1084,29 +1164,29 @@
                     </div>
                     <div class="skill-item">
                         <div class="skill-header">
-                            <span class="skill-name">English</span>
-                            <span class="skill-level">Professional</span>
+                            <span class="skill-name" data-en="English" data-cs="Angličtina">English</span>
+                            <span class="skill-level" data-en="Fluent" data-cs="Plynule">Fluent</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 85%"></div>
+                            <div class="skill-fill" style="--skill-level: 90%"></div>
                         </div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-header">
-                            <span class="skill-name">German</span>
-                            <span class="skill-level">Working</span>
+                            <span class="skill-name" data-en="German" data-cs="Němčina">German</span>
+                            <span class="skill-level" data-en="Conversational" data-cs="Konverzační">Conversational</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 55%"></div>
+                            <div class="skill-fill" style="--skill-level: 40%"></div>
                         </div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-header">
-                            <span class="skill-name">Russian</span>
-                            <span class="skill-level">Elementary</span>
+                            <span class="skill-name" data-en="Russian" data-cs="Ruština">Russian</span>
+                            <span class="skill-level" data-en="Beginner" data-cs="Začátečník">Beginner</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-fill" style="--skill-level: 25%"></div>
+                            <div class="skill-fill" style="--skill-level: 15%"></div>
                         </div>
                     </div>
                 </div>
@@ -1116,8 +1196,8 @@
         <!-- PROJECTS PAGE -->
         <section id="projects" class="page">
             <div class="section-header">
-                <span class="section-tag">// Open Source</span>
-                <h2 class="section-title">GitHub & Projects</h2>
+                <span class="section-tag" data-en="// Open Source" data-cs="// Open Source">// Open Source</span>
+                <h2 class="section-title" data-en="GitHub & Projects" data-cs="GitHub & Projekty">GitHub & Projects</h2>
             </div>
             <div class="github-header">
                 <div class="github-profile">
@@ -1131,14 +1211,14 @@
                 </div>
                 <a href="https://github.com/DEK4DENCE" target="_blank" class="github-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    View Profile
+                    <span data-en="View Profile" data-cs="Zobrazit Profil">View Profile</span>
                 </a>
             </div>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-icon">📊</div>
                     <h3 class="project-title">Hyperliquid Trading App</h3>
-                    <p class="project-description">
+                    <p class="project-description" data-en="Professional trading dashboard for Hyperliquid DEX with TradingView charts, TP/SL management, performance analytics, position tracking, and secure login system. Built with Streamlit." data-cs="Profesionální obchodní dashboard pro Hyperliquid DEX s TradingView grafy, správou TP/SL, výkonnostní analytikou, sledováním pozic a bezpečným přihlašovacím systémem. Vytvořeno ve Streamlit.">
                         Professional trading dashboard for Hyperliquid DEX with TradingView charts, 
                         TP/SL management, performance analytics, position tracking, 
                         and secure login system. Built with Streamlit.
@@ -1150,13 +1230,13 @@
                         <span class="tag">TradingView</span>
                     </div>
                     <a href="https://github.com/DEK4DENCE/hyperliquid-trading-app" target="_blank" class="project-link">
-                        View Repository →
+                        <span data-en="View Repository →" data-cs="Zobrazit Repozitář →">View Repository →</span>
                     </a>
                 </div>
                 <div class="project-card">
                     <div class="project-icon">💧</div>
                     <h3 class="project-title">HL Liquidations Monitor</h3>
-                    <p class="project-description">
+                    <p class="project-description" data-en="Real-time liquidation monitoring application for Hyperliquid exchange. Tracks and displays liquidation events with customizable alerts and data visualization for market analysis." data-cs="Real-time aplikace pro sledování likvidací na burze Hyperliquid. Sleduje a zobrazuje likvidační události s přizpůsobitelnými upozorněními a vizualizací dat pro analýzu trhu.">
                         Real-time liquidation monitoring application for Hyperliquid exchange. 
                         Tracks and displays liquidation events with customizable alerts 
                         and data visualization for market analysis.
@@ -1168,13 +1248,13 @@
                         <span class="tag">Real-time</span>
                     </div>
                     <a href="https://github.com/DEK4DENCE/hl-liquidations-v2" target="_blank" class="project-link">
-                        View Repository →
+                        <span data-en="View Repository →" data-cs="Zobrazit Repozitář →">View Repository →</span>
                     </a>
                 </div>
                 <div class="project-card">
                     <div class="project-icon">🐦</div>
                     <h3 class="project-title">Twitter Watcher</h3>
-                    <p class="project-description">
+                    <p class="project-description" data-en="Desktop tool for monitoring X/Twitter accounts and forwarding new tweets to Discord. Features GUI interface, Nitter RSS scraping, SQLite storage, and automated Discord webhook notifications." data-cs="Desktopový nástroj pro sledování X/Twitter účtů a přeposílání nových tweetů na Discord. Obsahuje GUI rozhraní, Nitter RSS scraping, SQLite úložiště a automatizované Discord webhook notifikace.">
                         Desktop tool for monitoring X/Twitter accounts and forwarding 
                         new tweets to Discord. Features GUI interface, Nitter RSS scraping, 
                         SQLite storage, and automated Discord webhook notifications.
@@ -1186,13 +1266,13 @@
                         <span class="tag">SQLite</span>
                     </div>
                     <a href="https://github.com/DEK4DENCE/Twitter-watcher" target="_blank" class="project-link">
-                        View Repository →
+                        <span data-en="View Repository →" data-cs="Zobrazit Repozitář →">View Repository →</span>
                     </a>
                 </div>
                 <div class="project-card">
                     <div class="project-icon">🌐</div>
-                    <h3 class="project-title">Personal CV Website</h3>
-                    <p class="project-description">
+                    <h3 class="project-title" data-en="Personal CV Website" data-cs="Osobní CV Web">Personal CV Website</h3>
+                    <p class="project-description" data-en="Modern interactive portfolio website with cyber-tech aesthetic. Features animated backgrounds, skill visualizations, work timeline, and responsive design. Built with vanilla HTML/CSS/JS." data-cs="Moderní interaktivní portfolio web s cyber-tech estetikou. Obsahuje animované pozadí, vizualizace dovedností, pracovní timeline a responzivní design. Vytvořeno v čistém HTML/CSS/JS.">
                         Modern interactive portfolio website with cyber-tech aesthetic. 
                         Features animated backgrounds, skill visualizations, 
                         work timeline, and responsive design. Built with vanilla HTML/CSS/JS.
@@ -1204,7 +1284,7 @@
                         <span class="tag">Responsive</span>
                     </div>
                     <a href="https://github.com/DEK4DENCE/cv-website" target="_blank" class="project-link">
-                        View Repository →
+                        <span data-en="View Repository →" data-cs="Zobrazit Repozitář →">View Repository →</span>
                     </a>
                 </div>
             </div>
@@ -1273,6 +1353,45 @@
             el.style.transition = 'all 0.5s ease';
             observer.observe(el);
         });
+
+        // Language Toggle
+        let currentLang = 'en';
+        const langBtns = document.querySelectorAll('.lang-btn');
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update button states
+            langBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update all elements with data-en and data-cs attributes
+            document.querySelectorAll('[data-en][data-cs]').forEach(el => {
+                el.textContent = el.dataset[lang];
+            });
+
+            // Update page title
+            document.title = lang === 'en' 
+                ? 'Adam Suda | Python Developer & Automation Specialist'
+                : 'Adam Suda | Python Vývojář & Specialista na Automatizaci';
+
+            // Save preference
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        // Add click handlers to language buttons
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Load saved language preference
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang) {
+            switchLanguage(savedLang);
+        }
     </script>
 </body>
 </html>
